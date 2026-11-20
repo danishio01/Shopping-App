@@ -1,0 +1,87 @@
+
+{% extends "shop/base.html" %}
+
+{% block title %}
+Products | DjangoShop
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+
+    <h1>Our Products</h1>
+
+    <p>
+        Explore our collection and add
+        your favorite products to your cart.
+    </p>
+
+</section>
+
+
+<div class="product-grid">
+
+    {% for product in products %}
+
+    <div class="product-card">
+
+        <div class="product-image">
+            <span>🛍️</span>
+        </div>
+
+        <div class="product-info">
+
+            <h2>
+                {{ product.name }}
+            </h2>
+
+            <p class="product-description">
+                {{ product.description }}
+            </p>
+
+            <p class="product-price">
+                ₹{{ product.price }}
+            </p>
+
+            <p class="stock-info">
+                {{ product.stock }} items available
+            </p>
+
+            <form
+                method="post"
+                action="{% url 'shop:cart_add' product.id %}"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Add to Cart
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="empty-state">
+
+        <h2>No products available</h2>
+
+        <p>
+            Add products through the
+            Django admin panel.
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

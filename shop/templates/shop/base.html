@@ -1,0 +1,87 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Django Shopping Cart
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{% static 'shop/styles.css' %}">
+</head>
+
+<body>
+
+    <!-- Navigation bar -->
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="{% url 'shop:product_list' %}"
+               class="logo">
+                DjangoShop
+            </a>
+
+            <nav class="nav-links">
+
+                <a href="{% url 'shop:product_list' %}">
+                    Products
+                </a>
+
+                <a href="{% url 'shop:cart_detail' %}"
+                   class="cart-link">
+                    Cart
+                    <span class="cart-badge">
+                        {{ cart_count }}
+                    </span>
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <!-- Django messages -->
+    <main class="main-container">
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+        <!-- Page content -->
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <p>
+            Django Shopping Cart |
+            Built with Django and SQLite
+        </p>
+
+    </footer>
+
+</body>
+</html>
